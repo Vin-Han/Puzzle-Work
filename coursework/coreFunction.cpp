@@ -1,154 +1,158 @@
 #include "coreFunction.h"
 
-void coreFunction::startBegin(int* arrayOnly) {
+void coreFunction::startBegin(int* arrayOnly, const int sizeNum) {
 	this->arrayOnly = arrayOnly;
 	oneVector.emplace_back(arrayOnly);
 	usefulVector.emplace_back(arrayOnly);
-	loopArray(oneVector, twoVector, usefulVector);
+	printArray(arrayOnly, sizeNum);
+	loopArray(oneVector, twoVector, usefulVector, sizeNum);
+	row = 0;
+	column = 0;
+	reverseRow = 0;
+	reverseColumn = 0;
 }
 
-void coreFunction::loopArray(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector)
+void coreFunction::loopArray(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum)
 {
-	getNextLevel(oneVector, twoVector, usefulVector);
-	if (oneVector.begin() == oneVector.end() && twoVector.begin() == twoVector.end()) return;
-	else { loopArray(twoVector, oneVector, usefulVector); }
+	getNextLevel(oneVector, twoVector, usefulVector, sizeNum);
+	if (oneVector.begin() == oneVector.end() && twoVector.begin() == twoVector.end()) { system("pause"); return; }
+	else { loopArray(twoVector, oneVector, usefulVector, sizeNum); }
 }
 
-void coreFunction::getNextLevel(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector) {
+void coreFunction::getNextLevel(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum) {
 	vector<int*>::iterator oneBegin = oneVector.begin();
 	for (; oneBegin < oneVector.end(); oneBegin++) {
-		moveArray(*oneBegin, twoVector, usefulVector);
+		moveArray(*oneBegin, twoVector, usefulVector, sizeNum);
 	}
 	oneVector.clear();
 }
 
-void coreFunction::moveArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector) {
-	int arrayVer;
-	int arrayHor;
-	for (int ver = 0; ver < 4; ver++) {
-		for (int hor = 0; hor < 4; hor++) {
-			int calculateNum = ((ver + 1) * (hor + 1) - 1);
-			if (arrayOnly[calculateNum] == 16) {
+void coreFunction::moveArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum) {
+	int arrayVer = 0;
+	int arrayHor = 0;
+	for (int ver = 0; ver < sizeNum; ver++) {
+		for (int hor = 0; hor < sizeNum; hor++) {
+			int calculateNum = (ver * sizeNum + hor);
+			if (arrayOnly[calculateNum] == 0) {
 				arrayVer = ver;
 				arrayHor = hor;
 			}
-			else
-			{
-			}
+			else {}
 		}
 	}
 	if (arrayVer != 0) {
-		arrayStrUp(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor);
+		arrayStrUp(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor, sizeNum);
 	}
 	else {}
-	if (arrayVer != 3) {
-		arrayStrDown(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor);
+	if (arrayVer != (sizeNum - 1)) {
+		arrayStrDown(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor, sizeNum);
 	}
 	else {}
 	if (arrayHor != 0) {
-		arrayStrRight(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor);
+		arrayStrRight(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor, sizeNum);
 	}
 	else {}
-	if (arrayHor != 3) {
-		arrayStrLeft(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor);
+	if (arrayHor != (sizeNum - 1)) {
+		arrayStrLeft(arrayOnly, twoVector, usefulVector, arrayVer, arrayHor, sizeNum);
 	}
 	else {}
 }
 
-bool coreFunction::checkArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector) {
+bool coreFunction::checkArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum) {
 	vector<int*>::iterator usefulBeg = usefulVector.begin();
-	for (; usefulBeg < usefulVector.end(); usefulBeg++) {
-		for (int checkNum = 0; checkNum < 16; checkNum++) {
+	int maxSize = sizeNum * sizeNum;
+	for (; usefulBeg != usefulVector.end(); usefulBeg++) {
+		for (int checkNum = 0; checkNum < maxSize; ) {
 			if (arrayOnly[checkNum] != (*usefulBeg)[checkNum]) {
-				cout << usefulVector.size() << endl;
-				printArray(arrayOnly, usefulVector);
-				twoVector.emplace_back(arrayOnly);
-				usefulVector.emplace_back(arrayOnly);
-				return true;
-
+				checkNum = maxSize;
+			}
+			else {
+				checkNum++;
+				if (checkNum == maxSize) {
+					return false;
+				}
 			}
 		}
 	}
-	return false;
+	cout << usefulVector.size() + 1 << endl;
+	//printArray(arrayOnly, sizeNum);
+	twoVector.push_back(arrayOnly);
+	usefulVector.push_back(arrayOnly);
+	return true;
 }
 
-void coreFunction::printArray(int* arrayOnly, vector<int*> usefulVector) {
-	for (int calculateNum = 0; calculateNum < 16; calculateNum++)
+void coreFunction::printArray(int* arrayOnly, const int sizeNum) {
+	if (arrayOnly[(sizeNum * sizeNum) - 1] == 0)
 	{
-		if ((calculateNum % 4) == 0) {
-			cout << endl;
+		for (int calculatenum = 0; calculatenum < (sizeNum * sizeNum); calculatenum++)
+		{
+			if ((calculatenum % sizeNum) == 0) {
+				cout << endl;
+			}
+			cout << arrayOnly[calculatenum] << "    ";
 		}
-		cout << arrayOnly[calculateNum] << "    ";
+		cout << endl;
+		cout << "\t\t" << usefulVector.size() + 1 << "\n\n" << endl;
 	}
-	cout << "\n" << usefulVector.size() << "\n\n" << endl;
-	cout << "\n\n" << endl;
 }
 
-void coreFunction::arrayStrUp(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor) {
-	int* arrayUp = new int[16];
-	for (int copyNum = 0; copyNum < 16; copyNum++)
+void coreFunction::arrayStrUp(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum) {
+	int* arrayUp = new int[(sizeNum * sizeNum)];
+	for (int copyNum = 0; copyNum < (sizeNum * sizeNum); copyNum++)
 	{
 		arrayUp[copyNum] = arrayOnly[copyNum];
 	}
-	int temp1 = (arrayVer + 1) * (arrayHor + 1) - 1;
-	int temp2 = arrayVer * (arrayHor + 1) - 1;
+	int temp1 = arrayVer * sizeNum + arrayHor;
+	int temp2 = (arrayVer - 1) * sizeNum + arrayHor;
 	int tempUp = arrayUp[temp1];
 	arrayUp[temp1] = arrayUp[temp2];
 	arrayUp[temp2] = tempUp;
-
-	if (checkArray(arrayUp, twoVector, usefulVector) == false) {
+	if (checkArray(arrayUp, twoVector, usefulVector, sizeNum) == false) {
 		delete[]arrayUp;
-		arrayUp == NULL;
 	}
 }
-void coreFunction::arrayStrDown(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor) {
-	int* arrayDown = new int[16];
-	for (int copyNum = 0; copyNum < 16; copyNum++)
+void coreFunction::arrayStrDown(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum) {
+	int* arrayDown = new int[(sizeNum * sizeNum)];
+	for (int copyNum = 0; copyNum < (sizeNum * sizeNum); copyNum++)
 	{
 		arrayDown[copyNum] = arrayOnly[copyNum];
 	}
-	int temp1 = (arrayVer + 1) * (arrayHor + 1) - 1;
-	int temp2 = (arrayVer + 2) * (arrayHor + 1) - 1;
+	int temp1 = arrayVer * sizeNum + arrayHor;
+	int temp2 = (arrayVer + 1) * sizeNum + arrayHor;
 	int tempUp = arrayDown[temp1];
 	arrayDown[temp1] = arrayDown[temp2];
 	arrayDown[temp2] = tempUp;
-
-	if (checkArray(arrayDown, twoVector, usefulVector) == false) {
+	if (checkArray(arrayDown, twoVector, usefulVector, sizeNum) == false) {
 		delete[]arrayDown;
-		arrayDown == NULL;
 	}
 }
-void coreFunction::arrayStrRight(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor) {
-	int* arrayRight = new int[16];
-	for (int copyNum = 0; copyNum < 16; copyNum++)
+void coreFunction::arrayStrRight(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum) {
+	int* arrayRight = new int[(sizeNum * sizeNum)];
+	for (int copyNum = 0; copyNum < (sizeNum * sizeNum); copyNum++)
 	{
 		arrayRight[copyNum] = arrayOnly[copyNum];
 	}
-	int temp1 = (arrayVer + 1) * (arrayHor + 1) - 1;
-	int temp2 = (arrayVer + 1) * arrayHor - 1;
+	int temp1 = arrayVer * sizeNum + arrayHor;
+	int temp2 = arrayVer * sizeNum + arrayHor - 1;
 	int tempUp = arrayRight[temp1];
 	arrayRight[temp1] = arrayRight[temp2];
 	arrayRight[temp2] = tempUp;
-
-	if (checkArray(arrayRight, twoVector, usefulVector) == false) {
+	if (checkArray(arrayRight, twoVector, usefulVector, sizeNum) == false) {
 		delete[]arrayRight;
-		arrayRight == NULL;
 	}
 }
-void coreFunction::arrayStrLeft(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor) {
-	int* arrayLeft = new int[16];
-	for (int copyNum = 0; copyNum < 16; copyNum++)
+void coreFunction::arrayStrLeft(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum) {
+	int* arrayLeft = new int[(sizeNum * sizeNum)];
+	for (int copyNum = 0; copyNum < (sizeNum * sizeNum); copyNum++)
 	{
 		arrayLeft[copyNum] = arrayOnly[copyNum];
 	}
-	int temp1 = (arrayVer + 1) * (arrayHor + 1) - 1;
-	int temp2 = (arrayVer + 1) * (arrayHor + 2) - 1;
+	int temp1 = arrayVer * sizeNum + arrayHor;
+	int temp2 = arrayVer * sizeNum + arrayHor + 1;
 	int tempUp = arrayLeft[temp1];
 	arrayLeft[temp1] = arrayLeft[temp2];
 	arrayLeft[temp2] = tempUp;
-
-	if (checkArray(arrayLeft, twoVector, usefulVector) == false) {
+	if (checkArray(arrayLeft, twoVector, usefulVector, sizeNum) == false) {
 		delete[]arrayLeft;
-		arrayLeft == NULL;
 	}
 }

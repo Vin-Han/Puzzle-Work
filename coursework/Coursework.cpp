@@ -5,48 +5,49 @@ using namespace std;
 
 void startGame() {
 	textFunction* usingNow = new textFunction;
-	int* arrayOnly = new int[16];
 
 	for (;;)
 	{
+		const int puzzleLevel = usingNow->levelChoise();
+		int* arrayOnly = new int[(puzzleLevel * puzzleLevel)];
 		int playerInput = usingNow->welcomeFace();
 		if (playerInput == 1) {
-			int playNum = usingNow->playerInput1(arrayOnly);
+			int playNum = usingNow->playerInput1(arrayOnly, puzzleLevel);
 			if (playNum == 1)
 			{
 				delete usingNow;
 				usingNow = NULL;
 				coreFunction newCore;
-				newCore.startBegin(arrayOnly);
+				newCore.startBegin(arrayOnly, puzzleLevel);
 				return;
 			}
 		}
 		else if (playerInput == 2) {
-			int playNum = usingNow->playerInput2(arrayOnly);
+			int playNum = usingNow->playerInput2(arrayOnly, puzzleLevel);
 			if (playNum == 1)
 			{
 				delete usingNow;
 				usingNow = NULL;
 				coreFunction newCore;
-				newCore.startBegin(arrayOnly);
+				newCore.startBegin(arrayOnly, puzzleLevel);
 				return;
 			}
 		}
 		else if (playerInput == 3) {
-			int playNum = usingNow->playerInput3(arrayOnly);
+			int playNum = usingNow->playerInput3(arrayOnly, puzzleLevel);
 			if (playNum == 1)
 			{
 				delete usingNow;
 				usingNow = NULL;
 				coreFunction newCore;
-				newCore.startBegin(arrayOnly);
+				newCore.startBegin(arrayOnly, puzzleLevel);
 				return;
 			}
 		}
 		else if (playerInput == 4) {
 			return;
 		}
-
+		delete[]arrayOnly;
 	}
 }
 

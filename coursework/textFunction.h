@@ -6,9 +6,10 @@ class textFunction
 {
 public:
 	int welcomeFace();
-	int playerInput1(int* arrayOnly);
-	int playerInput2(int* arrayOnly);
-	int playerInput3(int* arrayOnly);
-	int showArray(int* arrayOnly);
+	int levelChoise();
+	int playerInput1(int* arrayOnly, const int sizeNum);
+	int playerInput2(int* arrayOnly, const int sizeNum);
+	int playerInput3(int* arrayOnly, const int sizeNum);
+	int showArray(int* arrayOnly, const int sizeNum);
 };
 

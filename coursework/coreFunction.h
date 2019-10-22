@@ -6,21 +6,25 @@ using namespace std;
 class coreFunction
 {
 private:
-	int* arrayOnly ;
+	int* arrayOnly;
 	vector<int*> oneVector;
 	vector<int*> twoVector;
 	vector<int*> usefulVector;
+	int row;
+	int column;
+	int reverseRow;
+	int reverseColumn;
 private:
-	void loopArray(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector);
-	void getNextLevel(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector);
-	void moveArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector);
-	void arrayStrUp(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor);
-	void arrayStrDown(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor);
-	void arrayStrRight(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor);
-	void arrayStrLeft(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor);
-	bool checkArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector);
-	void printArray(int* arrayOnly, vector<int*> usefulVector);
+	void loopArray(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum);
+	void getNextLevel(vector<int*>& oneVector, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum);
+	void moveArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum);
+	void arrayStrUp(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum);
+	void arrayStrDown(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum);
+	void arrayStrRight(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum);
+	void arrayStrLeft(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int& arrayVer, const int& arrayHor, const int sizeNum);
+	bool checkArray(int* arrayOnly, vector<int*>& twoVector, vector<int*>& usefulVector, const int sizeNum);
+	void printArray(int* arrayOnly, const int sizeNum);
 public:
-	void startBegin(int* arrayOnly);
+	void startBegin(int* arrayOnly, const int sizeNum);
 };
 
