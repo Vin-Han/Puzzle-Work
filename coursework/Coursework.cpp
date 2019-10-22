@@ -5,11 +5,10 @@ using namespace std;
 
 void startGame() {
 	textFunction* usingNow = new textFunction;
-
 	for (;;)
 	{
 		const int puzzleLevel = usingNow->levelChoise();
-		int* arrayOnly = new int[(puzzleLevel * puzzleLevel)];
+		int* arrayOnly = new int[(puzzleLevel * puzzleLevel) + 3];
 		int playerInput = usingNow->welcomeFace();
 		if (playerInput == 1) {
 			int playNum = usingNow->playerInput1(arrayOnly, puzzleLevel);

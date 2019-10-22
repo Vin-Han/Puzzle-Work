@@ -80,7 +80,6 @@ int textFunction::levelChoise() {
 			}
 		}
 	}
-
 }
 
 int textFunction::playerInput1(int* arrayOnly, const int sizeNum) {
@@ -134,6 +133,9 @@ int textFunction::playerInput1(int* arrayOnly, const int sizeNum) {
 		}
 	}
 	arrayOnly[(sizeNum * sizeNum) - 1] = 0;
+	arrayOnly[(sizeNum * sizeNum)] = 0;
+	arrayOnly[(sizeNum * sizeNum) + 1] =(sizeNum - 1);
+	arrayOnly[(sizeNum * sizeNum) + 2] =(sizeNum - 1);
 	return showArray(arrayOnly, sizeNum);
 }
 
@@ -147,27 +149,32 @@ int textFunction::playerInput2(int* arrayOnly, const int sizeNum) {
 		}
 	}
 	arrayOnly[(sizeNum * sizeNum) - 1] = 0;
+	arrayOnly[(sizeNum * sizeNum)] = 0;
+	arrayOnly[(sizeNum * sizeNum) + 1] = (sizeNum - 1);
+	arrayOnly[(sizeNum * sizeNum) + 2] = (sizeNum - 1);
 	return showArray(arrayOnly, sizeNum);
 }
 
 int textFunction::playerInput3(int* arrayOnly, const int sizeNum) {
-	for (int countNum = 0; countNum < sizeNum * sizeNum; countNum++) {
+	for (int countNum = 0; countNum < (sizeNum*sizeNum); countNum++) {
 		arrayOnly[countNum] = countNum + 1;
 	}
 	arrayOnly[(sizeNum * sizeNum) - 1] = 0;
+	arrayOnly[(sizeNum * sizeNum)] = 0;
+	arrayOnly[(sizeNum * sizeNum) + 1] = (sizeNum - 1);
+	arrayOnly[(sizeNum * sizeNum) + 2] = (sizeNum - 1);
 	return showArray(arrayOnly, sizeNum);
 }
 
 int textFunction::showArray(int* arrayOnly, const int sizeNum) {
 	int playNum;
 	system("cls");
-	for (;;)
-	{
+	for (;;){
 		cout << "**********************************" << endl;
 		cout << "******so now let us begin ?*******" << endl;
 		cout << "******by using this array ?*******" << endl;
 		cout << "**********************************" << endl;
-		for (int genNumA = 0; genNumA < sizeNum * sizeNum; genNumA++) {
+		for (int genNumA = 0; genNumA < (sizeNum*sizeNum); genNumA++) {
 			if ((genNumA % sizeNum) == 0)
 			{
 				cout << "*********";
@@ -201,5 +208,4 @@ int textFunction::showArray(int* arrayOnly, const int sizeNum) {
 			return playNum;
 		}
 	}
-
 }
