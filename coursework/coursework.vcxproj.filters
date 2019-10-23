@@ -24,12 +24,30 @@
     <ClCompile Include="textFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="toolFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recordUsing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fomulaFun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coreFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="textFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="toolFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="recordUsing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fomulaFun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

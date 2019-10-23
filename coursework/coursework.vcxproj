@@ -153,11 +153,17 @@
   <ItemGroup>
     <ClCompile Include="coreFunction.cpp" />
     <ClCompile Include="coursework.cpp" />
+    <ClCompile Include="fomulaFun.cpp" />
+    <ClCompile Include="recordUsing.cpp" />
     <ClCompile Include="textFunction.cpp" />
+    <ClCompile Include="toolFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coreFunction.h" />
+    <ClInclude Include="fomulaFun.h" />
+    <ClInclude Include="recordUsing.h" />
     <ClInclude Include="textFunction.h" />
+    <ClInclude Include="toolFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

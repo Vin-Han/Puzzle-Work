@@ -1,0 +1,8 @@
+1
+1	2	12	
+4	9	5	
+10	11	
+row = 240
+column = 240
+reverse row = 240
+reverse column = 240
